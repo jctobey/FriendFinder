@@ -174,10 +174,11 @@
             Photo: $(".photo").val().trim(),
             Scores: [$(".select-q1").val(), $(".select-q2").val(), $(".select-q3").val(), $(".select-q4").val(), $(".select-q5").val(), $(".select-q6").val(), $(".select-q7").val(), $(".select-q8").val(), $(".select-q9").val(), $(".select-q10").val()]
         };
+        console.log(newSurvey)
         let arr=newSurvey.Scores;
         let arrNumber=arr.map(Number);
-        const arrSum = arrNumber=> arrNumber.reduce((a,b) => a + b, 0)
-        let totalScore=arrSum(arrNumber);
+        /*const arrSum = arrNumber=> arrNumber.reduce((a,b) => a + b, 0)
+        let totalScore=arrSum(arrNumber);*/
         //find closest value to survey
         //let x = 8;
         //let array = [5, 10, 15, 20, 25, 30, 35];
@@ -187,15 +188,9 @@
         $.post("/api/survey", newSurvey,
         function(data) {
 
-          // If a table is available... tell user they are booked.
-          if (data) {
-            alert("Yay! You are officially booked!");
-          }
+         console.log(data)
 
           // If a table is available... tell user they on the waiting list.
-          else {
-            alert("Sorry you are on the wait list");
-          }
         });
 
         

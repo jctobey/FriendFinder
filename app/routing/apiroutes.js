@@ -7,7 +7,6 @@
 var friendData = require("../data/friends");
 
 
-
 // ===============================================================================
 // ROUTING
 // ===============================================================================
@@ -32,11 +31,29 @@ module.exports = function(app) {
   // Then the server saves the data to the tableData array)
   // ---------------------------------------------------------------------------
   app.post("/api/survey", function(req, res) {
+    let questionDiff=[];
+
+    for( let i=0; i<friendData.length; i++){
+      let questionDiffSum=0;
+      for( let j=0; j<req.body.Scores; j++){
+       questionDiffSum +=Math.abs(parseInt(req.body.Scores[j])-friendData[i].Scores[j])
+      }
+      questionDiff.push(questionDiffSum)
+    }
+      let lowestNumber=100000;
+      let lowestIndex=0;
+    for( let k=0; k<questionDiff.length; k++){
+      if(questionDiff[k]<lowestNumber){
+        lowestNumber=questionDiff[k];
+        lowestIndex=k;
+      }
+    }
+  console.log(req.body)
     // Note the code here. Our "server" will respond to requests and let users know if they have a table or not.
     // It will do this by sending out the value "true" have a table
     // req.body is available since we're using the body-parser middleware
-    friends.push(req.body);
-      res.json(true);
+    friendData.push(req.body);
+      res.json(friendData[lowestIndex]);
     
   });
 
