@@ -14,6 +14,7 @@
     <title>Friend Finder</title>
 </head>
 
+
 <body>
     <div class="container">
         <h2>Friend Finder Survey</h2>
@@ -31,7 +32,7 @@
             <b>Question 1</b>
         </h3>
         <h4>You prefer fantasy novels to non-fiction.</h4>
-        <select class="select-q1">
+        <select class="select-q1 form-control">
             <option value></option>
             <option value="1">1 (Strongly Disagree)</option>
             <option value="2">2</option>
@@ -43,7 +44,7 @@
             <b>Question 2</b>
         </h3>
         <h4>You like pizza more than sushi.</h4>
-        <select class="select-q2">
+        <select class="select-q2 form-control">
             <option value></option>
             <option value="1">1 (Strongly Disagree)</option>
             <option value="2">2</option>
@@ -55,7 +56,7 @@
             <b>Question 3</b>
         </h3>
         <h4>You prefer to find new things to do instead of sticking to a routine.</h4>
-        <select class="select-q3">
+        <select class="select-q3 form-control">
             <option value></option>
             <option value="1">1 (Strongly Disagree)</option>
             <option value="2">2</option>
@@ -67,7 +68,7 @@
             <b>Question 4</b>
         </h3>
         <h4>You like to plan everything out instead of winging it.</h4>
-        <select class="select-q4">
+        <select class="select-q4 form-control">
             <option value></option>
             <option value="1">1 (Strongly Disagree)</option>
             <option value="2">2</option>
@@ -79,7 +80,7 @@
             <b>Question 5</b>
         </h3>
         <h4>You like to travel constantly instead of sticking around in one place.</h4>
-        <select class="select-q5">
+        <select class="select-q5 form-control">
             <option value></option>
             <option value="1">1 (Strongly Disagree)</option>
             <option value="2">2</option>
@@ -91,7 +92,7 @@
             <b>Question 6</b>
         </h3>
         <h4>If possible, you like doing outside activities instead of staying inside.</h4>
-        <select class="select-q6">
+        <select class="select-q6 form-control">
             <option value></option>
             <option value="1">1 (Strongly Disagree)</option>
             <option value="2">2</option>
@@ -103,7 +104,7 @@
             <b>Question 7</b>
         </h3>
         <h4>You prefer winter weather to summer weather.</h4>
-        <select class="select-q7">
+        <select class="select-q7 form-control">
             <option value></option>
             <option value="1">1 (Strongly Disagree)</option>
             <option value="2">2</option>
@@ -115,7 +116,7 @@
             <b>Question 8</b>
         </h3>
         <h4>You prefer coffee over tea.</h4>
-        <select class="select-q8">
+        <select class="select-q8 form-control">
             <option value></option>
             <option value="1">1 (Strongly Disagree)</option>
             <option value="2">2</option>
@@ -127,7 +128,7 @@
             <b>Question 9</b>
         </h3>
         <h4>You like to ride rollercoasters and amusement rides.</h4>
-        <select class="select-q9">
+        <select class="select-q9 form-control">
             <option value></option>
             <option value="1">1 (Strongly Disagree)</option>
             <option value="2">2</option>
@@ -139,7 +140,7 @@
             <b>Question 10</b>
         </h3>
         <h4>You prefer horror movies to comedy movies.</h4>
-        <select class="select-q10">
+        <select class="select-q10 form-control">
             <option value></option>
             <option value="1">1 (Strongly Disagree)</option>
             <option value="2">2</option>
@@ -149,13 +150,33 @@
         </select>
         <br>
         <br>
-        <button type="submit" class="submit btn btn-primary btn-lg btn-block" id="submit">
+        <button type="submit" class="submit btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#exampleModal">
             <i class="fa fa-check-circle" aria-hidden="true"></i>
 
             Submit</button>
         <hr>
 
-    </div>
+    </div> 
+ <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Friend Match</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <h2 class="match-name"></h2>
+              <img class="match-img" src="0" alt></h2>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
 </body>
 
 </html>
@@ -165,34 +186,31 @@
     // In essence, when the user hits submit, jQuery grabs all of the fields then sends a post request to our api
     // Our api recognizes the route (/api/tables)... and then runs the associated code (found in api-routes.js).
     // In this case the associated code "saves" the data to the table-data.js file or waitinglist-data.js file
-
+    
+   
     $(".submit").on("click", function (event) {
-        
+    if($(".name").val().trim() =="" && $(".photo").val().trim() =="")
+    {
+    $(".match-name").text("Here's where your friends would be...IF YOU FILLED OUT THE REQUIRED INFO! Please go back and put your name and picture.")}
+    else{  
         // Here we grab the form elements
         var newSurvey = {
             Name: $(".name").val().trim(),
             Photo: $(".photo").val().trim(),
             Scores: [$(".select-q1").val(), $(".select-q2").val(), $(".select-q3").val(), $(".select-q4").val(), $(".select-q5").val(), $(".select-q6").val(), $(".select-q7").val(), $(".select-q8").val(), $(".select-q9").val(), $(".select-q10").val()]
         };
-        console.log(newSurvey)
-        let arr=newSurvey.Scores;
-        let arrNumber=arr.map(Number);
-        /*const arrSum = arrNumber=> arrNumber.reduce((a,b) => a + b, 0)
-        let totalScore=arrSum(arrNumber);*/
-        //find closest value to survey
-        //let x = 8;
-        //let array = [5, 10, 15, 20, 25, 30, 35];
-        //let closest = array.sort( (a, b) => Math.abs(x - a) - Math.abs(x - b) )[0];
-
-        //document.body.innerHTML = closest;
+        
         $.post("/api/survey", newSurvey,
         function(data) {
-
-         console.log(data)
-
+            console.log(data)
+         $(".match-name").text(data.Name)
+         $(".match-img").attr("src", data.Photo)
+        $(".results-modal").modal("toggle");
           // If a table is available... tell user they on the waiting list.
         });
 
-        
-    })
+      
+    }  
+})
+
 </script>
