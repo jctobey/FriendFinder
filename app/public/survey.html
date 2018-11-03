@@ -191,7 +191,8 @@
     $(".submit").on("click", function (event) {
     if($(".name").val().trim() =="" && $(".photo").val().trim() =="")
     {
-    $(".match-name").text("Here's where your friends would be...IF YOU FILLED OUT THE REQUIRED INFO! Please go back and put your name and picture.")}
+    $(".match-name").text("Here's where your friends would be...IF YOU FILLED OUT THE REQUIRED INFO! Please go back and put your name and picture.")
+    $(".match-img").clear()}
     else{  
         // Here we grab the form elements
         var newSurvey = {
